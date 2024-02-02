@@ -1,0 +1,54 @@
+<div class="recuperacao-senha-container">
+  <mat-card-header>
+    <mat-card-title>{{interfaceProperty['titulo']['recuperar_senha']}}</mat-card-title>
+    <mat-card-subtitle>{{interfaceProperty['mensagem']['informe_seu_email_link_recuperacao_senha']}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-field-container">
+        <!--<p class="selecao">
+          <mat-radio-group formControlName="selecao" aria-label="Select an option">
+            <mat-radio-button value="email">{{interfaceProperty['label']['email']}}</mat-radio-button>
+            <mat-radio-button value="cpf">{{interfaceProperty['label']['cpf']}}</mat-radio-button>
+          </mat-radio-group>
+        </p>-->
+        <mat-form-field appearance="outline" class="form-field-fw" *ngIf="form.controls['selecao'].value === 'email'">
+          <mat-label>{{interfaceProperty['label']['email']}}</mat-label>
+          <input
+            formControlName="email"
+            matInput
+            required
+            type="email"/>
+            <mat-error *ngIf="form.controls['email'].hasError('required')">
+              {{interfaceProperty['mensagem']['informe_seu_email']}}
+            </mat-error>
+            <mat-error *ngIf="form.controls['email'].hasError('email')">
+              {{interfaceProperty['mensagem']['informe_email_valido']}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-fw"  *ngIf="form.controls['selecao'].value === 'cpf'">
+          <mat-label>{{interfaceProperty['label']['cpf']}}</mat-label>
+          <input
+            formControlName="cpf"
+            [mask]="'000.000.000-00'"
+            matInput
+            required/>
+            <mat-error *ngIf="form.controls['cpf'].hasError('required')">
+              {{interfaceProperty['mensagem']['informe_seu_cpf']}}
+            </mat-error>
+            <mat-error *ngIf="form.controls['cpf'].hasError('mask') || !form.controls['cpf'].hasError('required') && form.controls['cpf'].invalid">
+              {{interfaceProperty['mensagem']['informe_cpf_valido']}}
+            </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="button-container-ct">
+        <button color="primary" class="button-primary width-100" mat-raised-button type="submit">{{interfaceProperty['label']['enviar_link_recuperacao']}}</button>
+        <a mat-button (click)="onLogin()" >{{interfaceProperty['label']['voltar_ao_login']}} </a>
+      </div>
+
+    </form>
+  </mat-card-content>
+</div>

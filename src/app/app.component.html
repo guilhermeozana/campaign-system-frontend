@@ -1,0 +1,16 @@
+<app-loader *ngIf="loadingService.isLoading$ | async"></app-loader>
+
+<app-toolbar
+    [title]="title"
+    [sidenav]="sidenav.sidenav"
+    [isLoggedIn]="isLoggedIn$ | async"
+    [isProfileSelected]="isProfileSelected$ | async"
+    (logout)="onLogout()">
+</app-toolbar>
+
+<app-sidenav #sidenav
+  [isLoggedIn]="isLoggedIn$ | async"
+  [isProfileSelected]="isProfileSelected$ | async"
+  [title]="title"
+  (logout)="onLogout()">
+</app-sidenav>

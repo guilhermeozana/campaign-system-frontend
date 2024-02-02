@@ -1,0 +1,73 @@
+.loader-container {
+  position: fixed;
+  height: 100% !important;
+  width: 100% !important;
+  background: #000000;
+  opacity: 0.8;
+  z-index: 100;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  cursor: progress;
+}
+
+.loader {
+  width: 200px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  top: 40%;
+  margin: auto;
+  align-items: center;
+}
+
+.loader .loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo-agide {
+  stroke: var(--primary-color);
+  stroke-width: 1px;
+  stroke-dasharray: 4500;
+  transition: 1s all;
+  fill-opacity: 0;
+  margin-bottom: 5px;
+  animation: draw 2s ease-in alternate infinite;
+}
+
+@keyframes draw {
+  0% {
+    stroke-dashoffset: 4500;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    fill-opacity: 1;
+  }
+}
+
+.cls-1{
+  fill:var(--primary-color);
+  fill-rule:evenodd;
+}
+
+.tres-pontos {
+  margin-left: 5px;
+}
+
+.jump {
+  animation: jump 1s ease-in-out infinite;
+}
+
+@keyframes jump {
+  25% {
+      transform: translateY(-3px);
+  }
+
+  75% {
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,100 @@
+<mat-card class="container">
+  <mat-card-header>
+    <mat-card-title>{{acao}} {{interfaceProperty['titulo']['questionario']}}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-field-container">
+          <mat-form-field class="form-field-md" appearance="outline" *ngIf="isEdicao">
+            <mat-label>{{interfaceProperty['label']['id']}}</mat-label>
+            <input
+              formControlName="id"
+              matInput
+              readonly
+              type="text"/>
+          </mat-form-field>
+
+
+          <mat-form-field class="form-field-md" appearance="outline">
+            <mat-label>{{interfaceProperty['label']['nome']}}</mat-label>
+            <input
+              formControlName="name"
+              matInput
+              required
+              type="text"/>
+            <mat-error *ngIf="form.controls['name'].hasError('required')">
+              O campo {{interfaceProperty['label']['nome']}} é obrigatório!
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field class="form-field-md" appearance="outline">
+            <mat-label>{{interfaceProperty['label']['descricao']}}</mat-label>
+            <input
+              formControlName="description"
+              matInput
+              type="text"/>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-md" appearance="outline">
+            <mat-label>{{interfaceProperty['label']['campanha']}}</mat-label>
+            <mat-select formControlName="campaign_id" required>
+              <mat-option *ngFor="let campanha of campanhas" [value]="campanha.id">
+                {{campanha.id}} - {{campanha.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls['campaign_id'].hasError('required')">
+              O campo {{interfaceProperty['label']['campanha']}} é obrigatório!
+            </mat-error>
+          </mat-form-field>
+
+          <div class="form-field-sm">
+            {{interfaceProperty['label']['obrigatorio']}}<mat-slide-toggle color="primary" formControlName="is_required"></mat-slide-toggle>
+          </div>
+        </div>
+
+        <div class="droplist-container">
+          <mat-card-header>
+            <mat-card-title>Selecionar Perguntas</mat-card-title>
+            <mat-card-subtitle>Arraste e solte ou clique duas vezes sobre uma pergunta para mudá-la de quadro.</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div
+              cdkDropList
+              #todoList="cdkDropList"
+              [cdkDropListData]="perguntasDisponiveis"
+              [cdkDropListConnectedTo]="[doneList]"
+              class="droplist mat-elevation-z3"
+              (cdkDropListDropped)="drop($event)">
+              <h2>Perguntas Disponíveis</h2>
+              <div class="droplist-item" *ngFor="let item of perguntasDisponiveis" (dblclick)="selecionarPergunta(item)" cdkDrag>{{item.description}} <mat-icon class="drag-indicator" matListItemIcon>drag_indicator</mat-icon></div>
+            </div>
+
+            <div class="droplist-buttons">
+              <button mat-mini-fab type="button" matTooltip="Selecionar todas" (click)="selecionarTodasPerguntas()"><mat-icon>keyboard_double_arrow_right</mat-icon></button>
+              <br>
+              <button mat-mini-fab type="button" matTooltip="Cancelar a seleção de todas" (click)="cancelarSelecaoTodasPerguntas()"><mat-icon>keyboard_double_arrow_left</mat-icon></button>
+            </div>
+
+            <div
+              cdkDropList
+              #doneList="cdkDropList"
+              [cdkDropListData]="perguntasSelecionadas"
+              [cdkDropListConnectedTo]="[todoList]"
+              class="droplist mat-elevation-z3"
+              (cdkDropListDropped)="drop($event)">
+
+              <h2>Perguntas Selecionadas</h2>
+              <div class="droplist-item" *ngFor="let item of perguntasSelecionadas" (dblclick)="cancelarSelecaoPergunta(item)" cdkDrag> {{item.description}} <mat-icon class="drag-indicator" matListItemIcon>drag_indicator</mat-icon></div>
+            </div>
+          </mat-card-content>
+        </div>
+
+        <div class="button-container-sb">
+          <button color="primary" class="button-primary button-grow" mat-raised-button type="submit">{{interfaceProperty['label']['salvar']}}</button>
+          <button class="button-secondary  button-grow" mat-button (click)="onCancela()">{{interfaceProperty['label']['cancelar']}}</button>
+        </div>
+    </form>
+  </mat-card-content>
+</mat-card>

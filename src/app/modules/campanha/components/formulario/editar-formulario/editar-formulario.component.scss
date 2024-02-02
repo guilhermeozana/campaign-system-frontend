@@ -1,0 +1,13 @@
+::ng-deep .mat-mdc-dialog-surface {
+  min-width: 40vw !important;
+
+  margin-left: 0;
+}
+
+mat-radio-group , .multiple-options {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+}

@@ -1,0 +1,45 @@
+.sidenav-container {
+  position: flex;
+}
+
+.sidenav-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.mat-sidenav {
+  position: fixed;
+  padding-top: 65px;
+  background-color: var(--mat-toolbar-container-background-color);
+  width: 300px;
+}
+
+.content {
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 110vh;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+@media (max-width: 768px) {
+  /* .content {
+    padding: 0 !important;
+  } */
+
+}
+
+@media (max-width: 500px) {
+
+  .mat-sidenav {
+    display: flex;
+    width: 75%;
+ }
+
+}
+
+
+
+

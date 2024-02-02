@@ -1,0 +1,72 @@
+<mat-card class="container">
+  <mat-card-header>
+    <mat-card-title class="title">{{interfaceProperty['titulo']['manter_menu']}}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form>
+      <mat-form-field class="form-field-md" appearance="outline">
+        <mat-label>{{interfaceProperty['label']['filtrar']}}</mat-label>
+        <input matInput type="text" (keyup)="aplicarFiltro($event)" placeholder="Ex. Configurações" #input>
+      </mat-form-field>
+    </form>
+    <section class="table-container" tabindex="0">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort (matSortChange)="announceSortChange($event)">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id">{{interfaceProperty['label']['id']}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> {{interfaceProperty['label']['descricao']}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="url">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by active"> {{interfaceProperty['label']['url']}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.url}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="icon">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by active"> {{interfaceProperty['label']['icone']}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.icon}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="created_at">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by created_at"> {{interfaceProperty['label']['criado_em']}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.created_at | date:'dd/MM/yyyy  hh:mm:ss'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="updated_at">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by updated_at"> {{interfaceProperty['label']['atualizado_em']}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.created_at | date:'dd/MM/yyyy  hh:mm:ss'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> {{interfaceProperty['label']['acoes']}} </th>
+          <td mat-cell *matCellDef="let element">
+            <button class="action-button" mat-mini-fab color="primary" (click)="editarMenu(element)" matTooltip="{{interfaceProperty['label']['editar']}} {{interfaceProperty['label']['perfil']}}"><mat-icon>edit</mat-icon></button>
+            <button class="action-button" mat-mini-fab color="primary" (click)="excluirMenu(element)" matTooltip="{{interfaceProperty['label']['excluir']}} {{interfaceProperty['label']['perfil']}}"><mat-icon>delete</mat-icon></button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4" *ngIf="dataSource._data._value.length > 0"> {{interfaceProperty['mensagem']['nenhum_dado_corresponde_filtro']}} "{{input.value}}".</td>
+          <td class="mat-cell" colspan="4" *ngIf="dataSource._data._value.length === 0">{{interfaceProperty['mensagem']['nenhum_item_encontrado']}}</td>
+        </tr>
+      </table>
+
+      <div class="table-footer">
+        <button class="button-grow" (click)="incluirMenu()" mat-mini-fab color="primary" matTooltip="{{interfaceProperty['label']['incluir']}} {{interfaceProperty['label']['perfil']}}">
+          <mat-icon>add</mat-icon>
+        </button>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                      showFirstLastButtons>
+        </mat-paginator>
+      </div>
+    </section>
+  </mat-card-content>
+</mat-card>

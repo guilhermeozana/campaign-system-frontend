@@ -1,0 +1,83 @@
+<mat-card-header mat-dialog-title>
+  <button mat-icon-button (click)="onCancela()" style="position: absolute; right: 0; top: 0;">
+    <mat-icon>close</mat-icon>
+  </button>
+  <mat-card-title>{{acao}} {{interfaceProperty['titulo']['pergunta']}}</mat-card-title>
+</mat-card-header>
+
+<mat-card-content mat-dialog-content class="dialog-content">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-field-container">
+      <mat-form-field class="form-field-md" appearance="outline">
+        <mat-label>{{interfaceProperty['label']['pergunta']}}</mat-label>
+        <input
+          formControlName="description"
+          matInput
+          required
+          type="text"/>
+          <mat-error *ngIf="form.controls['description'].hasError('required')">
+            O campo {{interfaceProperty['label']['pergunta']}} é obrigatório!
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field-md" appearance="outline">
+        <mat-label>{{interfaceProperty['label']['tipo_resposta']}}</mat-label>
+        <mat-select formControlName="component_type" required>
+          <mat-option *ngFor="let option of tipoRespostaOptions" [value]="option.component">
+            <mat-icon>{{option.icon}}</mat-icon>{{option.tipoResposta}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['component_type'].hasError('required')">
+          O campo {{interfaceProperty['label']['tipo_resposta']}} é obrigatório!
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-field-sm">
+        {{interfaceProperty['label']['obrigatoria']}}<mat-slide-toggle color="primary" formControlName="is_required"></mat-slide-toggle>
+      </div>
+
+      <div class="answers" *ngIf="form.controls['component_type'].value === 'radio' || form.controls['component_type'].value === 'checkbox'">
+        <div cdkDropList (cdkDropListDropped)="drop($event)" class="drop-list" >
+          <h2 style="margin: 0">
+            {{interfaceProperty['label']['opcoes_resposta']}}
+          </h2>
+
+          <div class="drop-list-box" cdkDrag *ngFor="let answer of answers; index as i">
+              <mat-icon class="drag-indicator" matListItemIcon>drag_indicator</mat-icon>
+              <mat-form-field class="form-field-md box-form-field">
+                <input
+                  matInput
+                  required
+                  value="{{answer.description}}"
+                  (change)="onAlteraOpcaoResposta($event, i)"
+                  type="text"/>
+                  <mat-hint>
+                    <mat-checkbox checked="{{answer.active}}" (change)="onCheckbox($event, i)" >{{interfaceProperty['label']['ativo']}}</mat-checkbox>
+                  </mat-hint>
+              </mat-form-field>
+
+
+              <button mat-icon-button (click)="removerOpcaoResposta(i)">
+                <mat-icon>close</mat-icon>
+              </button>
+          </div>
+
+          <div class="add-answer-container">
+            <mat-icon class="drag-indicator" style="visibility: 0;" matListItemIcon>drag_indicator</mat-icon>
+
+            <button mat-button type="button" (click)="adicionarOpcaoResposta()"><mat-icon matListItemIcon>add</mat-icon> Adicionar Opção</button>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="button-container-sb" mat-dialog-actions>
+        <button color="primary" class="button-primary button-grow" mat-raised-button type="submit">{{interfaceProperty['label']['salvar']}}</button>
+        <button class="button-secondary button-grow" type="button" mat-button (click)="onCancela()">{{interfaceProperty['label']['cancelar']}}</button>
+      </div>
+  </form>
+</mat-card-content>
+
+
+
+
+

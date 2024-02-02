@@ -1,0 +1,35 @@
+:host {
+  display: flex;
+  justify-content: center;
+  margin: 32px 15px;
+}
+
+.login-container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+mat-card-title {
+  font-size: 38px !important;
+}
+
+#esqueceu-senha {
+  margin-top: 5px;
+}
+
+
+@media (max-width: 928px) {
+  :host {
+    width: 100%;
+    margin: 28px 0;
+  }
+
+  .login-container {
+    min-width: 350px;
+    margin: -20px 15px 15px 15px;
+  }
+
+}

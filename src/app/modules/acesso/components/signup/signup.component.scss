@@ -1,0 +1,30 @@
+:host {
+  display: flex;
+  justify-content: center;
+  margin: 35px 15px;
+}
+
+.signup-container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+mat-card-title {
+  font-size: 38px !important;
+}
+
+@media (max-width: 928px) {
+  :host {
+    width: 100%;
+    margin: 28px;
+  }
+
+  .signup-container {
+    min-width: 350px;
+    margin: -40px 15px 15px 15px;
+  }
+
+}

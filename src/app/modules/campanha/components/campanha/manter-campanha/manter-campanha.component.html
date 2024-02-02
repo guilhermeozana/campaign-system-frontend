@@ -1,0 +1,81 @@
+<mat-card class="container">
+  <mat-card-header>
+    <mat-card-title>{{acao}} {{interfaceProperty['titulo']['campanha']}}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-field-container">
+          <mat-form-field class="form-field-md" appearance="outline" *ngIf="isEdicao">
+            <mat-label>{{interfaceProperty['label']['id']}}</mat-label>
+            <input
+              formControlName="id"
+              matInput
+              readonly
+              type="text"/>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-md" appearance="outline">
+            <mat-label>{{interfaceProperty['label']['nome']}}</mat-label>
+            <input
+              formControlName="name"
+              matInput
+              required
+              type="text"/>
+            <mat-error *ngIf="form.controls['name'].hasError('required')">
+              O campo {{interfaceProperty['label']['nome']}} é obrigatório!
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field class="form-field-md" appearance="outline">
+            <mat-label>{{interfaceProperty['label']['descricao']}}</mat-label>
+            <input
+              formControlName="description"
+              matInput
+              required
+              type="text"/>
+              <mat-error *ngIf="form.controls['description'].hasError('required')">
+                O campo {{interfaceProperty['label']['descricao']}} é obrigatório!
+              </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-md" appearance="outline">
+            <mat-label>{{interfaceProperty['label']['inicio']}}</mat-label>
+            <input
+              formControlName="starts_at"
+              matInput
+              required
+              type="date"/>
+              <mat-error *ngIf="form.controls['starts_at'].hasError('required')">
+                O campo {{interfaceProperty['label']['inicio']}} é obrigatório!
+              </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-md" appearance="outline">
+            <mat-label>{{interfaceProperty['label']['fim']}}</mat-label>
+            <input
+              formControlName="stop_at"
+              matInput
+              type="date"/>
+            <mat-error *ngIf="form.controls['stop_at'].hasError('required')">
+              O campo {{interfaceProperty['label']['fim']}} é obrigatório!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-checkbox class="form-field-sm" formControlName="active">{{interfaceProperty['label']['ativo']}}</mat-checkbox>
+
+        </div>
+        <div class="button-container-sb">
+          <button color="primary" class="button-primary button-grow" mat-raised-button type="submit">{{interfaceProperty['label']['salvar']}}</button>
+          <button class="button-secondary  button-grow" mat-button (click)="onCancela()">{{interfaceProperty['label']['cancelar']}}</button>
+        </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
+
+
+
+

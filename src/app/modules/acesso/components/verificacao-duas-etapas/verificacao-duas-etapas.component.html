@@ -1,0 +1,97 @@
+<mat-card>
+  <div class="logo-verificacao">
+    <mat-icon>verified_user</mat-icon>
+  </div>
+
+  <mat-card-header>
+    <mat-card-title>{{interfaceProperty['titulo']['codigo_verificacao']}}</mat-card-title>
+    <mat-card-subtitle>{{interfaceProperty['mensagem']['informe_codigo_enviado_email']}} {{form.controls['email'].value}}.</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="input-container">
+
+          <mat-form-field appearance="outline">
+            <input
+              formControlName="verification_token1"
+              (paste)="onPaste($event)"
+              (keydown)="onKeydown($event)"
+              matInput
+              maxlength="1"
+              type="text"
+              id="input-focus"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <input
+              formControlName="verification_token2"
+              matInput
+              maxlength="1"
+              type="text"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <input
+              formControlName="verification_token3"
+              matInput
+              maxlength="1"
+              type="text"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <input
+              formControlName="verification_token4"
+              matInput
+              maxlength="1"
+              type="text"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <input
+              formControlName="verification_token5"
+              matInput
+              maxlength="1"
+              type="text"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <input
+              formControlName="verification_token6"
+              matInput
+              maxlength="1"
+              type="text"/>
+          </mat-form-field>
+
+      </div>
+
+      <!-- <p class="input">
+        <mat-form-field appearance="outline">
+          <mat-label>{{interfaceProperty['label']['codigo']}}</mat-label>
+          <input
+            formControlName="verification_token"
+            maxlength="6"
+            matInput
+            required
+            autofocus
+            type="text"/>
+
+          <mat-error *ngIf="form.controls['password'].hasError('required')">
+            Informe o {{interfaceProperty['label']['codigo']}}.
+          </mat-error>
+        </mat-form-field>
+      </p> -->
+
+      <div class="button-container-ct">
+        <button color="primary" class="button-primary width-100" mat-raised-button type="submit">{{interfaceProperty['label']['verificar']}}</button>
+
+        <span *ngIf="getSecondsRemaining() > 0">
+          Aguarde {{ getSecondsRemaining() }} segundos antes de reenviar o token.
+        </span>
+
+        <a *ngIf="getSecondsRemaining() == 0" mat-button (click)="resendToken()">{{interfaceProperty['label']['reenviar_token']}} </a>
+      </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>

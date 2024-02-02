@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+.recuperacao-senha-container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+}
+
+mat-card-title {
+  font-size: 34px !important;
+}
+
+.selecao {
+  display: flex;
+  justify-content: left;
+}
+
+.button-container-ct a {
+  margin-top: 10px;
+}
+
+
+@media (max-width: 928px) {
+  :host {
+    width: 100%;
+    margin: 15px;
+  }
+
+  .recuperacao-senha-container {
+    min-width: 350px;
+    margin: 15px;
+  }
+
+}

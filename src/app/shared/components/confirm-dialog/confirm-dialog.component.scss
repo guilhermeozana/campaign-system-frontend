@@ -1,0 +1,9 @@
+::ng-deep .mat-mdc-dialog-surface {
+  border-radius: 20px !important;
+  padding: 10px !important;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,0 +1,31 @@
+<div class="normal-menu">
+  <mat-nav-list>
+    <mat-accordion >
+      <div *ngFor="let menuItem of menu$ | async">
+        <div  *ngIf="!menuItem.children" style="text-align: center;">
+            <a mat-list-item class="mat-elevation-z0" [routerLink]="menuItem.url" routerLinkActive="selected" style="padding: 0 24px;" (click)="sidenav.toggle()" ><span class="list-item-text"><mat-icon>{{menuItem.icon}}</mat-icon> {{menuItem.name}}</span></a>
+        </div>
+
+        <mat-expansion-panel *ngIf="menuItem.children && menuItem.children.length > 0"
+          class="mat-elevation-z0">
+          <mat-expansion-panel-header  class="nav-head" [expandedHeight]="'48px'">
+            <mat-panel-title class="nav-link" style="text-align: center;">
+              <mat-icon matListItemIcon>{{menuItem.icon}}</mat-icon>
+              <span>{{menuItem.name}}</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="nav-section">
+            <div *ngFor="let child of menuItem.children"
+              class="nav-item">
+              <a mat-list-item class="mat-elevation-z0"
+                [routerLink]="child.url"
+                routerLinkActive="selected"
+                (click)="sidenav.toggle()">{{child.name}}</a>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </div>
+    </mat-accordion>
+  </mat-nav-list>
+</div>

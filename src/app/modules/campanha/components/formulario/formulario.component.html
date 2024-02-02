@@ -1,0 +1,173 @@
+<mat-card class="container"
+  *ngIf="surveySelected && !isFormCompleted && this.form">
+  <mat-card-header>
+    <mat-card-title>{{ surveySelected.name }}</mat-card-title>
+    <mat-card-subtitle>{{ surveySelected.description }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content *ngIf="!isFormCompleted">
+    <h2>
+      Pergunta {{ form.controls["ask_number"].value }} de
+      {{ surveySelected.survey_serialized.length }}
+    </h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="askSelected">
+      <div class="survey-container">
+        <h2>{{ askSelected ? askSelected.attributes.description : "" }}</h2>
+
+        <div *ngIf="askSelected.attributes.component_type == 'input'">
+          <mat-form-field class="form-field-fw" appearance="outline">
+            <input
+              formControlName="answer_text"
+              matInput
+              autofocus
+              type="text"
+            />
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="askSelected.attributes.component_type == 'textarea'">
+          <mat-form-field class="form-field-fw mat-hint" appearance="outline">
+            <textarea
+              formControlName="answer_text"
+              matInput
+              rows="6"
+              type="text"
+            ></textarea>
+          </mat-form-field>
+        </div>
+
+        <mat-radio-group
+          *ngIf="askSelected.attributes.component_type == 'radio'"
+          formControlName="answer_text"
+          class="multiplas-opcoes">
+          <mat-radio-button
+            *ngFor="
+              let item of askSelected.attributes.answer_options;
+              let i = index
+            "
+            [value]="item.description"
+            (change)="onAlteraRespostaRadio(item)"
+            [hidden]="!askSelected.attributes.answer_options[i].active">
+            {{ item.description }}
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <section
+          *ngIf="askSelected.attributes.component_type == 'checkbox'"
+          class="multiplas-opcoes">
+          <mat-checkbox
+            [value]="item.id"
+            (change)="onCheckbox($event, item)"
+            #checkbox{{item.id}}
+            id="checkbox{{ item.id }}"
+            [checked]="this.checkboxAnswer.answer_option_ids.includes(item.id)"
+            *ngFor="let item of askSelected.attributes.answer_options; let i = index"
+            >{{ item.description }}</mat-checkbox>
+        </section>
+
+        <mat-radio-group
+          class="perguntas-radios"
+          formControlName="ask_number"
+          *ngIf="form.controls['ask_number'].value">
+          <mat-radio-button
+            [value]="i + 1"
+            disabled="true"
+            *ngFor="let item of surveySelected.survey_serialized; let i = index"></mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="button-container-sb" style="margin-top: 15px">
+        <button
+          class="button-secondary button-grow"
+          style="margin-right: 7px"
+          type="button"
+          mat-button
+          (click)="onPerguntaAnterior()"
+          [disabled]="!form.controls['ask_number'].value || form.controls['ask_number'].value == 1">
+          {{ interfaceProperty["label"]["anterior"] }}
+        </button>
+
+        <span *ngIf="surveySelected.survey_serialized">
+          <button
+            class="button-secondary button-grow"
+            mat-raised-button
+            type="button"
+            (click)="onPularPergunta()"
+            *ngIf="!askSelected.attributes.is_required">
+            {{ interfaceProperty["label"]["pular"] }}
+          </button>
+
+          <button
+            color="primary"
+            style="margin-left: 10px"
+            class="button-primary button-grow"
+            mat-raised-button
+            type="submit"
+            [disabled]="!form.controls['answer_text'].valid">
+            {{ interfaceProperty["label"]["salvar"] }}
+          </button>
+        </span>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="container" *ngIf="surveySelected && isFormCompleted">
+  <mat-card-header>
+    <mat-card-title>{{ interfaceProperty.label.revisar_respostas }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="answers-resume-container" *ngIf="surveySelected">
+      <div
+        class="answers-resume"
+        *ngFor="let ask of surveySelected.survey_serialized; let i = index">
+        <h2>{{ ask.attributes.description }}</h2>
+
+        <div class="answer-container {{ask.attributes.component_type == 'checkbox' ? 'checkbox-answer' : ''}}">
+          <div class="answer">
+            <span
+              >Resposta{{ask.attributes.component_type == "checkbox" ? "(s)" : ""}}:
+            </span>
+
+            <span *ngIf="ask.attributes.component_type != 'checkbox'"><strong>{{ obterResposta(ask) }}</strong></span>
+
+            <span *ngIf="ask.attributes.component_type == 'checkbox'">
+              <span *ngIf="obterResposta(ask) == 'N/A'">N/A</span>
+              <ul *ngIf="obterResposta(ask) != 'N/A'">
+                <li *ngFor="let answer of obterResposta(ask)"><strong>{{ answer }}</strong></li>
+              </ul>
+            </span>
+          </div>
+
+          <button
+            mat-icon-button
+            matTooltip="Editar resposta"
+            (click)="onEditarResposta(ask.attributes.id, i)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="button-container-sb" style="margin-top: 30px">
+        <button
+          class="button-secondary button-grow"
+          type="button"
+          mat-button
+          (click)="onRefazerQuestionario()">
+          {{ interfaceProperty.label.refazer_questionario }}
+        </button>
+
+        <button
+          color="primary"
+          style="margin-left: 10px"
+          class="button-primary button-grow"
+          mat-raised-button
+          type="button"
+          (click)="onConfirmarRespostas()">
+          {{ interfaceProperty.label.confirmar_respostas }}
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

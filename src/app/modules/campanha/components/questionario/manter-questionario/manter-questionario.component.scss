@@ -1,0 +1,113 @@
+:host {
+  width: 90%;
+}
+
+.droplist-container {
+  margin: 20px 0 30px 0;
+}
+
+.droplist-container mat-card-header {
+  font-size: 24px !important;
+  padding: 0 0 16px 0 !important;
+}
+
+.droplist-container mat-card-title {
+  font-size: 24px !important;
+}
+
+.droplist-container mat-card-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 0 20px 0;
+}
+
+.droplist {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  width: 100%;
+  height: 300px;
+  border-radius: 15px;
+  overflow-y: auto !important;
+}
+
+.droplist-item {
+  height: 50px;
+  width: 95%;
+  padding: 15px 10px;
+  margin-bottom: 10px;
+  border: solid 1px #ccc;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  font-size: 14px;
+}
+
+.droplist-item:hover {
+  .drag-indicator {
+    visibility: visible;
+  }
+}
+
+.drag-indicator {
+  visibility: hidden;
+}
+
+.droplist-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.droplist.cdk-drop-list-dragging .droplist-item:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+@media (max-width: 768px) {
+
+  :host {
+    width: 100%;
+  }
+
+  .droplist-container mat-card-content {
+    flex-direction: column;
+  }
+
+  .droplist {
+    height: 280px;
+  }
+
+  .droplist-buttons {
+    flex-direction: row;
+  }
+
+  .droplist-buttons button {
+    margin: 10px;
+    transform: rotate(90deg)
+  }
+}

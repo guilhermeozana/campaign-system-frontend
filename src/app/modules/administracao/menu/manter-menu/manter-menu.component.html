@@ -1,0 +1,66 @@
+<div class="dialog-container">
+  <mat-card-header mat-dialog-title>
+    <mat-card-title>{{acao}} {{interfaceProperty['titulo']['menu']}}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content mat-dialog-content class="dialog-content">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-field-container">
+        <mat-form-field class="form-field-md" appearance="outline">
+          <mat-label>{{interfaceProperty['label']['menu']}}</mat-label>
+          <input
+            formControlName="name"
+            matInput
+            required
+            type="text"/>
+            <mat-error *ngIf="form.controls['name'].hasError('required')">
+              O campo {{interfaceProperty['label']['menu']}} é obrigatório!
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field-md" appearance="outline">
+          <mat-label>{{interfaceProperty['label']['url']}}</mat-label>
+          <input
+            formControlName="url"
+            matInput
+            required
+            type="text"/>
+            <mat-error *ngIf="form.controls['url'].hasError('required')">
+              O campo {{interfaceProperty['label']['url']}} é obrigatório!
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field-md" appearance="outline">
+          <mat-label>{{interfaceProperty['label']['icone']}}</mat-label>
+          <input
+            formControlName="icon"
+            matInput
+            required
+            type="text"/>
+            <mat-error *ngIf="form.controls['icon'].hasError('required')">
+              O campo {{interfaceProperty['label']['icone']}} é obrigatório!
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field-md" appearance="outline">
+          <mat-label>{{interfaceProperty['label']['perfil']}}</mat-label>
+          <mat-select formControlName="prefix" required multiple>
+            <mat-option *ngFor="let controller of controllers" [value]="controller.prefix">
+              {{controller.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls['prefix'].hasError('required')">
+            O campo {{interfaceProperty['label']['perfil']}} é obrigatório!
+          </mat-error>
+        </mat-form-field>
+      </div>
+        <div class="button-container-sb" mat-dialog-actions>
+          <button color="primary" class="button-primary button-grow" mat-raised-button type="submit">{{interfaceProperty['label']['salvar']}}</button>
+          <button class="button-secondary button-grow" type="button" mat-button (click)="onCancela()">{{interfaceProperty['label']['cancelar']}}</button>
+        </div>
+    </form>
+  </mat-card-content>
+</div>
+
+
+
+
+
+

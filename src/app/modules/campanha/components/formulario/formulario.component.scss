@@ -1,0 +1,96 @@
+:host {
+  width: 60% !important;
+}
+
+mat-card-content > h2{
+  width: 100%;
+  text-align: right;
+  justify-content: right !important;
+}
+
+.survey-container {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.multiplas-opcoes {
+  display: flex;
+  flex-direction: column;
+}
+
+.perguntas-radios {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5px;
+}
+
+.button-container-sb span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.answers-resume-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.answers-resume {
+  margin: 15px 0;
+}
+
+.answers-resume:first-child {
+  margin-top: 0;
+}
+
+.answers-resume:last-child {
+  margin-bottom: 45px;
+}
+
+.answers-resume h2 {
+  margin-bottom: 0;
+}
+
+.answer-container {
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+}
+
+.checkbox-answer {
+  margin-top: 12px;
+}
+
+.answer-container span{
+  margin-right: 15px;
+}
+
+.answer-container ul {
+  margin: 0 15px 0 0;
+}
+
+.answer-container li {
+  padding: 2px;
+}
+
+/* .answer-container li:last-child {
+  margin-bottom: 0px;
+} */
+
+.answer {
+  display: flex;
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+
+  :host {
+    width: 100% !important;
+  }
+
+  .radios {
+    scale: 0.8;
+  }
+}

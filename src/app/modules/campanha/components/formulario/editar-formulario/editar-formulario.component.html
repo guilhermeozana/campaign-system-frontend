@@ -1,0 +1,80 @@
+<mat-card-header mat-dialog-title>
+  <button
+    mat-icon-button
+    (click)="onCancela()"
+    style="position: absolute; right: 0; top: 0"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+  <mat-card-title
+    >{{ interfaceProperty["titulo"]["editar"] }}
+    {{ interfaceProperty["titulo"]["resposta"] }}</mat-card-title
+  >
+</mat-card-header>
+
+<mat-card-content mat-dialog-content class="dialog-content" *ngIf="askSelected">
+  <form [formGroup]="form">
+    <div class="form-field-container">
+      <h2 class="width-100">{{ askSelected.attributes.description }}</h2>
+
+      <mat-form-field class="form-field-fw" appearance="outline" *ngIf="askSelected.attributes.component_type == 'input'">
+        <input formControlName="answer_text" matInput autofocus type="text" />
+      </mat-form-field>
+
+      <mat-form-field class="form-field-fw mat-hint" appearance="outline" *ngIf="askSelected.attributes.component_type == 'textarea'">
+        <textarea
+          formControlName="answer_text"
+          matInput
+          rows="6"
+          type="text"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-radio-group
+        *ngIf="askSelected.attributes.component_type == 'radio'"
+        formControlName="answer_text">
+
+        <mat-radio-button
+          *ngFor="
+            let item of askSelected.attributes.answer_options;
+            let i = index
+          "
+          [value]="item.description"
+          (change)="onAlteraRespostaRadio(item)"
+          [hidden]="!askSelected.attributes.answer_options[i].active"
+        >
+          {{ item.description }}
+        </mat-radio-button>
+      </mat-radio-group>
+
+      <section *ngIf="askSelected.attributes.component_type == 'checkbox'" class="multiple-options">
+        <mat-checkbox
+          [value]="item.id"
+          (change)="onCheckbox($event, item)"
+          [checked]="this.checkboxAnswer.answer_option_ids.includes(item.id)"
+          *ngFor="let item of askSelected.attributes.answer_options; let i = index">{{ item.description }}
+        </mat-checkbox>
+      </section>
+    </div>
+
+    <div class="button-container-sb" mat-dialog-actions>
+      <button
+        color="primary"
+        class="button-primary button-grow"
+        mat-raised-button
+        [mat-dialog-close]="form.value" cdkFocusInitial
+        [disabled]="!form.valid"
+      >
+        {{ interfaceProperty["label"]["salvar"] }}
+      </button>
+      <button
+        class="button-secondary button-grow"
+        type="button"
+        mat-button
+        (click)="onCancela()"
+      >
+        {{ interfaceProperty["label"]["cancelar"] }}
+      </button>
+    </div>
+  </form>
+</mat-card-content>

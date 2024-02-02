@@ -1,0 +1,69 @@
+<mat-card class="acesso-container flip" id="container">
+    <div class="form-container sign-up" *ngIf="!isLogin">
+      <app-signup></app-signup>
+      <div  class="toggle-mobile">
+        <span>
+          <mat-label>{{interfaceProperty['label']['ja_possui_uma_conta']}}</mat-label>
+          <button mat-button class="" (click)="onLogin()">{{interfaceProperty['label']['fazer_login']}}</button>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-container sign-in" *ngIf="isLogin">
+      <app-recuperacao-senha
+        *ngIf="isRedefinicaoSenha; else login"
+        (login)="onLogin()">
+      </app-recuperacao-senha>
+
+      <ng-template #login>
+        <app-login
+          (redefinirSenha)="onRedefinirSenha()">
+        </app-login>
+      </ng-template>
+      <div class="toggle-mobile">
+        <span>
+          <mat-label>{{interfaceProperty['label']['nao_possui_uma_conta']}}</mat-label>
+          <button mat-button (click)="onCriarConta()">{{interfaceProperty['label']['criar_conta']}}</button>
+        </span>
+      </div>
+    </div>
+
+    <div class="toggle-container">
+      <div class="toggle">
+        <div class="toggle-panel toggle-left">
+          <mat-card-header>
+            <mat-card-title>{{interfaceProperty['titulo']['bem_vindo_de_volta']}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="toggle-label">
+              <mat-label>{{interfaceProperty['label']['acesse_sua_conta_agora']}}</mat-label>
+            </div>
+
+            <div *ngIf="!isLogin" class="button-container-ct">
+              <button mat-raised-button class="button-secondary" (click)="onLogin()">{{interfaceProperty['label']['fazer_login']}}</button>
+            </div>
+          </mat-card-content>
+        </div>
+
+        <div class="toggle-panel toggle-right">
+          <mat-card-header>
+            <mat-card-title>{{interfaceProperty['titulo']['seja_bem_vindo']}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+              <div class="toggle-label">
+                <mat-label>{{interfaceProperty['label']['crie_uma_conta_acessar_nosso_site']}}</mat-label>
+              </div>
+
+              <div *ngIf="isLogin" class="button-container-ct">
+                <button class="button-secondary" type="button" mat-raised-button (click)="onCriarConta()">{{interfaceProperty['label']['criar_conta']}} </button>
+              </div>
+          </mat-card-content>
+        </div>
+      </div>
+    </div>
+</mat-card>
+
+
+
+
+

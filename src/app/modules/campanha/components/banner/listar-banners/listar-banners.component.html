@@ -1,0 +1,115 @@
+<mat-card class="container">
+  <mat-card-header>
+    <mat-card-title class="title">{{interfaceProperty['titulo']['banners']}}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form>
+      <mat-form-field class="form-field-md" appearance="outline">
+        <mat-label>{{interfaceProperty['label']['filtrar']}}</mat-label>
+        <input matInput type="text" (keyup)="aplicarFiltro($event)" placeholder="Ex. Banner" #input>
+      </mat-form-field>
+    </form>
+
+    <section class="table-container" tabindex="0">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort (matSortChange)="announceSortChange($event)">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> {{interfaceProperty['label']['nome']}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type_banner">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by type_banner"> {{interfaceProperty['label']['tipo_banner']}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.type_banner}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="campaign">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by campaign"> {{interfaceProperty['label']['campanha']}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.campaign_id}} - {{element.campaign_name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="html">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by html"> {{interfaceProperty['label']['html']}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.is_html ? 'Sim' : 'Não'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> {{interfaceProperty['label']['acoes']}} </th>
+          <td mat-cell *matCellDef="let element">
+            <button class="action-button" mat-mini-fab color="primary" (click)="editarBanner(element)" matTooltip="{{interfaceProperty['label']['editar']}} {{interfaceProperty['label']['banner']}}"><mat-icon>edit</mat-icon></button>
+            <button class="action-button" mat-mini-fab color="primary" (click)="excluirBanner(element)" matTooltip="{{interfaceProperty['label']['excluir']}} {{interfaceProperty['label']['banner']}}"><mat-icon>delete</mat-icon></button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expand">
+          <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+              <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+              <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail" class="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+            <div class="expanded-detail-container" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'" >
+              <br>
+              <div class="element-detail element-textarea" >
+                <mat-form-field class="element-field" appearance="outline" >
+                  <mat-label>{{interfaceProperty['label']['descricao']}}</mat-label>
+                  <textarea matInput rows="6" readonly="true">{{element.description ? element.description : ' '}}</textarea>
+                </mat-form-field>
+              </div>
+
+              <div class="element-detail" >
+                <mat-form-field class="element-field" appearance="outline">
+                  <mat-label>{{interfaceProperty['label']['url']}}</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    value="{{element.url ? element.url : ' '}}"
+                    readonly="true"/>
+                </mat-form-field>
+              </div>
+
+              <div class="element-detail" >
+                <mat-form-field class="element-field" appearance="outline">
+                  <mat-label>{{interfaceProperty['label']['link_imagem']}}</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    value="{{element.imagem_link ? element.imagem_link : ' '}}"
+                    readonly="true"/>
+                </mat-form-field>
+              </div>
+            </div>
+
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+            class="element-row"
+            [class.expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4" *ngIf="dataSource._data._value.length > 0"> {{interfaceProperty['mensagem']['nenhum_dado_corresponde_filtro']}} "{{input.value}}".</td>
+          <td class="mat-cell" colspan="4" *ngIf="dataSource._data._value.length === 0">{{interfaceProperty['mensagem']['nenhum_item_encontrado']}}</td>
+        </tr>
+      </table>
+
+      <div class="table-footer">
+        <button class="button-grow" (click)="incluirBanner()" mat-mini-fab color="primary" matTooltip="{{interfaceProperty['label']['incluir']}} {{interfaceProperty['label']['banner']}}">
+          <mat-icon>add</mat-icon>
+        </button>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                      showFirstLastButtons>
+        </mat-paginator>
+      </div>
+    </section>
+  </mat-card-content>
+</mat-card>

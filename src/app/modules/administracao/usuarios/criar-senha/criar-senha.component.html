@@ -1,0 +1,54 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{interfaceProperty['titulo']['criar_senha']}}</mat-card-title>
+    <mat-card-subtitle>{{interfaceProperty['titulo']['informe_uma_nova_senha_acesso_sua_conta']}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <mat-form-field appearance="outline" class="form-field-fw">
+        <mat-label>{{interfaceProperty['label']['senha']}}</mat-label>
+        <input
+          formControlName="novaSenha"
+          matInput
+          required
+          minlength="6"
+          [type]="hide ? 'password' : 'text'"/>
+
+          <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+
+          <mat-error *ngIf="form.controls['novaSenha'].hasError('required')">
+            O campo {{interfaceProperty['label']['senha']}} é obrigatório.
+          </mat-error>
+          <mat-error *ngIf="form.controls['novaSenha'].hasError('minlength')">
+            O campo {{interfaceProperty['label']['senha']}} deve ter no mínimo 6 caracteres.
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field-fw">
+        <mat-label>{{interfaceProperty['label']['confirme_senha']}}</mat-label>
+        <input
+          formControlName="confirmacaoNovaSenha"
+          matInput
+          [type]="hide ? 'password' : 'text'" [errorStateMatcher]="matcher"/>
+
+          <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+
+          <mat-error *ngIf="form.hasError('notSame')">
+            As senhas precisam ser iguais.
+          </mat-error>
+      </mat-form-field>
+
+
+      <div class="button-container-ct">
+        <button color="primary" class="button-primary width-100" mat-raised-button type="submit">{{interfaceProperty['label']['incluir']}}</button>
+      </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,82 @@
+mat-card {
+  display: flex;
+  width: 500px !important;
+  min-width: 375px !important;
+  padding: 20px !important;
+  border-radius: 15px;
+}
+
+mat-card-header {
+  align-items: center;
+  text-align: center;
+}
+
+mat-card-content {
+  width: 100% !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+mat-form-field {
+  width: 15% !important;
+  height: 70px !important;
+}
+
+mat-form-field input{
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  height: 47px !important;
+}
+
+.logo-verificacao {
+  display: flex;
+  justify-content: center;
+}
+
+.logo-verificacao mat-icon{
+  transform: scale(4);
+  margin: 70px 0 40px 0;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.selecao {
+  display: flex;
+  justify-content: left;
+}
+
+.button-container-ct a {
+  margin-top: 10px;
+}
+
+.button-container-ct span {
+  margin-top: 10px;
+}
+
+@media (max-width: 500px) {
+
+  mat-card {
+    padding: 5px !important;
+  }
+
+  mat-form-field input{
+    font-size: 28px;
+    height: 40px !important;
+  }
+
+}
+

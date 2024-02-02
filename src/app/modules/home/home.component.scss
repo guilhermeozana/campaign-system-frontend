@@ -1,0 +1,10 @@
+:host {
+  width: 90%;
+}
+
+@media (max-width: 768px) {
+
+  :host {
+    width: 100%;
+  }
+}

@@ -1,0 +1,124 @@
+<mat-card class="container">
+  <mat-card-header>
+    <mat-card-title>{{acao}} {{interfaceProperty['titulo']['banner']}}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-field-container">
+          <mat-form-field class="form-field-md" appearance="outline" *ngIf="isEdicao">
+            <mat-label>{{interfaceProperty['label']['id']}}</mat-label>
+            <input
+              formControlName="id"
+              matInput
+              readonly
+              type="text"/>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-md" appearance="outline">
+            <mat-label>{{interfaceProperty['label']['nome']}}</mat-label>
+            <input
+              formControlName="name"
+              matInput
+              required
+              type="text"/>
+            <mat-error *ngIf="form.controls['name'].hasError('required')">
+              O campo {{interfaceProperty['label']['nome']}} é obrigatório!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-md" appearance="outline">
+            <mat-label>{{interfaceProperty['label']['tipo_banner']}}</mat-label>
+            <input
+              formControlName="type_banner"
+              matInput
+              required
+              type="text"/>
+            <mat-error *ngIf="form.controls['type_banner'].hasError('required')">
+              O campo {{interfaceProperty['label']['tipo_banner']}} é obrigatório!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-md" appearance="outline">
+            <mat-label>{{interfaceProperty['label']['campanha']}}</mat-label>
+            <mat-select formControlName="campaign_id" required>
+              <mat-option *ngFor="let campanha of campanhas" [value]="campanha.id">
+                {{campanha.id}} - {{campanha.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls['campaign_id'].hasError('required')">
+              O campo {{interfaceProperty['label']['campanha']}} é obrigatório!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-fw mat-hint" appearance="outline">
+            <mat-label>{{interfaceProperty['label']['descricao']}}</mat-label>
+            <textarea
+              formControlName="description"
+              matInput
+              rows="6"
+              type="text"></textarea>
+              <mat-hint style="margin-bottom: 15px !important;">
+                <mat-checkbox formControlName="is_html" color="primary" >{{interfaceProperty['label']['html']}}</mat-checkbox>
+              </mat-hint>
+          </mat-form-field>
+
+
+          <mat-form-field class="form-field-fw" appearance="outline">
+            <mat-label>{{interfaceProperty['label']['url']}}</mat-label>
+            <input
+              formControlName="url"
+              matInput
+              type="text"/>
+          </mat-form-field>
+
+          <mat-card class="mat-elevation-z0">
+            <mat-card-header>
+              <mat-card-title>Incluir Imagem</mat-card-title>
+              <mat-card-subtitle>Insira o link da imagem ou escolha o arquivo.</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="selecao">
+                <mat-radio-group formControlName="selecao" aria-label="Selecione uma opção">
+                  <mat-radio-button value="image_link">{{interfaceProperty['label']['inserir_link']}}</mat-radio-button>
+                  <mat-radio-button value="escolher_arquivo">{{interfaceProperty['label']['escolher_arquivo']}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
+
+              <mat-form-field class="form-field-fw" appearance="outline" *ngIf="form.controls['selecao'].value === 'image_link'">
+                <mat-label>{{interfaceProperty['label']['link_imagem']}}</mat-label>
+                <input
+                  formControlName="image"
+                  matInput
+                  type="text"/>
+              </mat-form-field>
+
+              <div *ngIf="form.controls['selecao'].value === 'escolher_arquivo'" style="display: flex; flex-direction: row; align-items: center; margin-top: 28px;" >
+                <span (click)="uploadFile.click()" style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+                  <button mat-raised-button style="background-color: #DDD; color: #000; margin-right: 10px;" type="button">Escolher arquivo</button>
+                  <input #uploadFile (change)="onUpload($event)" type='file' style="display:none" id="file"/>
+                  <span>{{file ? file.name : 'Nenhum arquivo selecionado.'}}</span>
+                </span>
+                <button class="botao-cancela-upload" mat-icon-button (click)="onCancelaUpload()" *ngIf="file">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+
+
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+      <div class="button-container-sb">
+        <button color="primary" class="button-primary button-grow" mat-raised-button type="submit">{{interfaceProperty['label']['salvar']}}</button>
+        <button class="button-secondary  button-grow" mat-button (click)="onCancela()">{{interfaceProperty['label']['cancelar']}}</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
+
+
+
+

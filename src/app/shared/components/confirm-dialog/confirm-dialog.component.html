@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{interfaceProperty['label']['excluir']}} {{data.type}}</h1>
+<div mat-dialog-content>
+  <p>{{interfaceProperty['mensagem']['tem_certeza_que_deseja_excluir']}} {{data.name}}?</p>
+</div>
+<div class="dialog-actions" mat-dialog-actions>
+  <button color="primary" class="button-primary button-grow" mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>{{interfaceProperty['label']['sim']}}</button>
+  <button class="button-secondary button-grow" mat-button (click)="onCancela()">{{interfaceProperty['label']['nao']}}</button>
+</div>
+

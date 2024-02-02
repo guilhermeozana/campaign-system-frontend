@@ -1,0 +1,29 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+}
+
+::ng-deep .info-snackbar {
+  --mdc-snackbar-container-color: #90CAF9 !important;
+  --mdc-snackbar-supporting-text-color: #000 !important;
+}
+
+::ng-deep .error-snackbar {
+  --mdc-snackbar-container-color: #EF9A9A !important;
+  --mdc-snackbar-supporting-text-color: #000 !important;
+}
+
+::ng-deep .success-snackbar {
+  --mdc-snackbar-container-color: #A5D6A7 !important;
+  --mdc-snackbar-supporting-text-color: #000 !important;
+}
+
+button {
+  color: #000 !important;
+
+}
+
+#titulo {
+  font-weight: 500 !important;
+}

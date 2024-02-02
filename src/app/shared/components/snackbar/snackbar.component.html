@@ -1,0 +1,8 @@
+<span matSnackBarLabel>
+  <h4 id="titulo">{{data.title}}</h4>
+  {{data.message}}
+</span>
+
+<span matSnackBarActions>
+  <button mat-icon-button matSnackBarAction (click)="snackBarRef.dismissWithAction()"><mat-icon>close</mat-icon></button>
+</span>

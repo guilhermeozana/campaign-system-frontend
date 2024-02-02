@@ -1,0 +1,27 @@
+:host {
+  width: 90% !important;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+.element-row td {
+  border-bottom-width: 0 !important;
+}
+
+.element-detail {
+  display: flex !important;
+}
+
+
+.element-field {
+  width: 100% !important;
+}
+
+.element-description-attribution {
+  opacity: 0.5 !important;
+}
+
+@media (max-width: 768px) {
+}

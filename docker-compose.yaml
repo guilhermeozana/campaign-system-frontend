@@ -1,0 +1,15 @@
+services:
+  sistema-base:
+    container_name: sistemabasecontainer
+    build: .
+    image: sistemabaseapp:v1
+    ports:
+      - 80:80
+    expose:
+      - 80
+    networks:
+      - internalnet
+
+networks:
+  internalnet:
+    driver: bridge
